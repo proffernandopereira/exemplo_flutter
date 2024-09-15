@@ -1,35 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:rastreabilidade_pec_corte_app/screens/Login/login_page.dart';
-import 'package:splashscreen/splashscreen.dart';
 
-class Splash_RPC extends StatelessWidget {
+class Splash_RPC extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return _introScreen();
-  }
+  _Splash_RPCState createState() => _Splash_RPCState();
 }
 
-Widget _introScreen() {
-  return Stack(
-    children: <Widget>[
-      SplashScreen(
-        seconds: 5,
-        gradientBackground: LinearGradient(
-          begin: Alignment.topRight,
-          end: Alignment.bottomLeft,
-          colors: [Colors.cyan, Colors.cyanAccent],
-        ),
-        navigateAfterSeconds: LoginPage(),
-        loaderColor: Colors.transparent,
-      ),
-      Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/logoRpc.png"),
-            fit: BoxFit.none,
+class _Splash_RPCState extends State<Splash_RPC> {
+  @override
+  void initState() {
+    super.initState();
+    // Simula um atraso de 5 segundos antes de navegar para a página de login
+    Future.delayed(Duration(seconds: 5), () {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => LoginPage()),
+      );
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
+                colors: [Colors.cyan, Colors.cyanAccent],
+              ),
+            ),
           ),
-        ),
+          Center(
+            child: Image.asset(
+              "assets/images/logoRpc.png",
+              fit: BoxFit.contain,
+            ),
+          ),
+        ],
       ),
-    ],
-  );
+    );
+  }
 }
